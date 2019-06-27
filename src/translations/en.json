@@ -1,0 +1,11 @@
+{
+    "tools.mainMenu": "Tools",
+    "tools.menu.registers": "Registers",
+    "tools.menu.renewals": "Policy Renewals",
+    "tools.menu.feedbacks": "Feedback Prompts",
+    "tools.menu.extracts": "Extracts",
+    "tools.menu.reports": "Reports",
+    "tools.menu.utilities": "Utilities",
+    "tools.menu.funding": "Funding",
+    "tools.menu.emails": "Emails Settings"
+}

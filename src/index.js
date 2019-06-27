@@ -1,4 +1,4 @@
-import { ToolsMainMenu } from "./components/ToolsMainMenu";
+import ToolsMainMenu from "./components/ToolsMainMenu";
 import { RegistersPage } from "./components/RegistersPage";
 import { PolicyRenewalsPage } from "./components/PolicyRenewalsPage";
 import { FeedbackPromptsPage } from "./components/FeedbackPromptsPage";
@@ -7,8 +7,10 @@ import { ReportsPage } from "./components/ReportsPage";
 import { UtilitiesPage } from "./components/UtilitiesPage";
 import { FundingPage } from "./components/FundingPage";
 import { EmailSettingsPage } from "./components/EmailSettingsPage";
+import messages_en from "./translations/en.json";
 
 const ToolsModule = {
+  "translations": [{ key: "en", messages: messages_en }],
   "core.Router": [
     { path: "tools/registers", component: RegistersPage },
     { path: "tools/policyRenewals", component: PolicyRenewalsPage },
