@@ -9,7 +9,7 @@ import { FundingPage } from "./components/FundingPage";
 import { EmailSettingsPage } from "./components/EmailSettingsPage";
 import messages_en from "./translations/en.json";
 
-const ToolsModule = {
+const DEFAULT_CONFIG = {
   "translations": [{ key: "en", messages: messages_en }],
   "core.Router": [
     { path: "tools/registers", component: RegistersPage },
@@ -24,4 +24,6 @@ const ToolsModule = {
   "core.MainMenu": [ToolsMainMenu]
 }
 
-export { ToolsModule };
+export const ToolsModule = (cfg) => {
+  return { ...DEFAULT_CONFIG, ...(cfg && cfg['fe-tools'] || {}) };
+}
