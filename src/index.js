@@ -25,5 +25,5 @@ const DEFAULT_CONFIG = {
 }
 
 export const ToolsModule = (cfg) => {
-  return { ...DEFAULT_CONFIG, ...(cfg && cfg['fe-tools'] || {}) };
+  return { ...DEFAULT_CONFIG, ...cfg };
 }
