@@ -15,10 +15,19 @@ import {
 } from "../constants";
 
 class ToolsMainMenu extends Component {
+
+  enablers = enablers => {
+    var e;
+    for (e of enablers) {
+      if (this.props.rights.includes(e)) return true;
+    };
+    return false;
+  }
+
   render() {
     const { rights } = this.props;
     let entries = [];
-    if (rights.includes(RIGHT_REGISTERS)) {
+    if (this.enablers(RIGHT_REGISTERS)) {
       entries.push(
         { text: formatMessage(this.props.intl, "tools", "menu.registers"), icon: <ImportExport />, route: "/tools/registers" }
       )
@@ -33,17 +42,17 @@ class ToolsMainMenu extends Component {
         { text: formatMessage(this.props.intl, "tools", "menu.feedbacks"), icon: <Feedback />, route: "/tools/feedbackPrompts" },
       )
     }
-    if (rights.includes(RIGHT_EXTRACTS)) {
+    if (this.enablers(RIGHT_EXTRACTS)) {
       entries.push(
         { text: formatMessage(this.props.intl, "tools", "menu.extracts"), icon: <SaveAlt />, route: "/tools/extracts" },
       )
     }
-    if (rights.includes(RIGHT_REPORTS)) {
+    if (this.enablers(RIGHT_REPORTS)) {
       entries.push(
         { text: formatMessage(this.props.intl, "tools", "menu.reports"), icon: <Ballot />, route: "/tools/reports" },
       )
     }
-    if (rights.includes(RIGHT_UTILITIES)) {
+    if (this.enablers(RIGHT_UTILITIES)) {
       entries.push(
         { text: formatMessage(this.props.intl, "tools", "menu.utilities"), icon: <Build />, route: "/tools/utilities" },
       )
