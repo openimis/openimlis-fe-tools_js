@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { injectIntl } from 'react-intl';
 import { connect } from "react-redux";
 import { AccountBalance, Autorenew, Ballot, Build, EmailOutlined, Feedback, ImportExport, SaveAlt, Settings } from "@material-ui/icons";
-import { formatMessage, MainMenuContribution } from "@openimis/fe-core";
+import { formatMessage, MainMenuContribution, withModulesManager } from "@openimis/fe-core";
 import {
   RIGHT_REGISTERS,
   RIGHT_EXTRACTS,
@@ -83,4 +83,4 @@ const mapStateToProps = state => ({
   rights: !!state.core && !!state.core.user && !!state.core.user.i_user ? state.core.user.i_user.rights : [],
 })
 
-export default injectIntl(connect(mapStateToProps)(ToolsMainMenu));
+export default withModulesManager(injectIntl(connect(mapStateToProps)(ToolsMainMenu)));
