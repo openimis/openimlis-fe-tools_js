@@ -83,4 +83,4 @@ const mapStateToProps = state => ({
   rights: !!state.core && !!state.core.user && !!state.core.user.i_user ? state.core.user.i_user.rights : [],
 })
 
-export default withModulesManager(injectIntl(connect(mapStateToProps)(ToolsMainMenu)));
+export default injectIntl(withModulesManager(connect(mapStateToProps)(ToolsMainMenu)));
