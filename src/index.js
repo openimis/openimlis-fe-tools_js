@@ -1,5 +1,5 @@
 import ToolsMainMenu from "./components/ToolsMainMenu";
-import { RegistersPage } from "./components/RegistersPage";
+import RegistersPage from "./components/RegistersPage";
 import { PolicyRenewalsPage } from "./components/PolicyRenewalsPage";
 import { FeedbackPromptsPage } from "./components/FeedbackPromptsPage";
 import { ExtractsPage } from "./components/ExtractsPage";
@@ -19,11 +19,11 @@ const DEFAULT_CONFIG = {
     { path: "tools/reports", component: ReportsPage },
     { path: "tools/utilities", component: UtilitiesPage },
     { path: "tools/funding", component: FundingPage },
-    { path: "tools/emailSettings", component: EmailSettingsPage }
+    { path: "tools/emailSettings", component: EmailSettingsPage },
   ],
-  "core.MainMenu": [ToolsMainMenu]
-}
+  "core.MainMenu": [ToolsMainMenu],
+};
 
 export const ToolsModule = (cfg) => {
   return { ...DEFAULT_CONFIG, ...cfg };
-}
+};
