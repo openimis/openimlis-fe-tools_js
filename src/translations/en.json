@@ -10,8 +10,8 @@
   "tools.menu.emails": "Emails Settings",
   "tools.strategyPicker": "Strategy",
   "tools.strategyPicker.null": "Select a strategy",
-  "tools.strategyPicker.INSERT_ONLY": "Insert Only",
-  "tools.strategyPicker.UPDATE_ONLY": "Update Only",
+  "tools.strategyPicker.INSERT": "Insert",
+  "tools.strategyPicker.UPDATE": "Update",
   "tools.strategyPicker.INSERT_UPDATE": "Insert & Update",
   "tools.strategyPicker.INSERT_UPDATE_DELETE": "Insert, Update & Delete",
   "tools.RegistersPage.modernView": "Modern",
@@ -27,5 +27,14 @@
   "tools.RegistersPage.locations.uploadLabel": "Upload Locations",
   "tools.RegistersPage.healthFacilitiesBlockTitle": "Health Facilities",
   "tools.RegistersPage.healthFacilities.downloadLabel": "Download Health Facilities",
-  "tools.RegistersPage.healthFacilities.uploadLabel": "Upload Health Facilities"
+  "tools.RegistersPage.healthFacilities.uploadLabel": "Upload Health Facilities",
+  "tools.RegistersPage.UploadDialog.title": "Upload Register",
+  "tools.RegistersPage.UploadDialog.success": "Success",
+  "tools.RegistersPage.UploadDialog.failure": "Failure",
+  "tools.RegistersPage.UploadDialog.okButton": "Ok",
+  "tools.RegistersPage.UploadDialog.sent": "Sent:",
+  "tools.RegistersPage.UploadDialog.created": "Created:",
+  "tools.RegistersPage.UploadDialog.updated": "Updated:",
+  "tools.RegistersPage.UploadDialog.errors": "Errors:",
+  "tools.RegistersPage.UploadDialog.deleted": "Deleted:"
 }
