@@ -1,12 +1,12 @@
 import ToolsMainMenu from "./components/ToolsMainMenu";
-import RegistersPage from "./components/RegistersPage";
-import { PolicyRenewalsPage } from "./components/PolicyRenewalsPage";
-import { FeedbackPromptsPage } from "./components/FeedbackPromptsPage";
-import { ExtractsPage } from "./components/ExtractsPage";
-import { ReportsPage } from "./components/ReportsPage";
-import { UtilitiesPage } from "./components/UtilitiesPage";
-import { FundingPage } from "./components/FundingPage";
-import { EmailSettingsPage } from "./components/EmailSettingsPage";
+import RegistersPage from "./pages/RegistersPage";
+import { PolicyRenewalsPage } from "./pages/PolicyRenewalsPage";
+import { FeedbackPromptsPage } from "./pages/FeedbackPromptsPage";
+import { ExtractsPage } from "./pages/ExtractsPage";
+import { ReportsPage } from "./pages/ReportsPage";
+import { UtilitiesPage } from "./pages/UtilitiesPage";
+import { FundingPage } from "./pages/FundingPage";
+import { EmailSettingsPage } from "./pages/EmailSettingsPage";
 import messages_en from "./translations/en.json";
 
 const DEFAULT_CONFIG = {
