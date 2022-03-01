@@ -4,7 +4,8 @@ import { ProxyPage } from "@openimis/fe-core";
 
 class FundingPage extends Component {
     render() {
-        return <ProxyPage url="/AddFunding.aspx" />
+        // TODO return <ProxyPage url="/AddFunding.aspx" />
+        return <> </>;
     }
 }
 

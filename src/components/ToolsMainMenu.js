@@ -32,16 +32,18 @@ class ToolsMainMenu extends Component {
         { text: formatMessage(this.props.intl, "tools", "menu.registers"), icon: <ImportExport />, route: "/tools/registers" }
       )
     }
-    if (rights.includes(RIGHT_POLICY_RENEWALS)) {
-      entries.push(
-        { text: formatMessage(this.props.intl, "tools", "menu.renewals"), icon: <Autorenew />, route: "/tools/policyRenewals" }
-      )
-    }
-    if (rights.includes(RIGHT_FEEDBACK_PROMPT)) {
-      entries.push(
-        { text: formatMessage(this.props.intl, "tools", "menu.feedbacks"), icon: <Feedback />, route: "/tools/feedbackPrompts" },
-      )
-    }
+    // Renewals are preformed automatically now.
+    // if (rights.includes(RIGHT_POLICY_RENEWALS)) {
+    //   entries.push(
+    //     { text: formatMessage(this.props.intl, "tools", "menu.renewals"), icon: <Autorenew />, route: "/tools/policyRenewals" }
+    //   )
+    // }
+    // SMS sending feature is normally done automatically now. We'll consider adding this back if necessary
+    // if (rights.includes(RIGHT_FEEDBACK_PROMPT)) {
+    //   entries.push(
+    //     { text: formatMessage(this.props.intl, "tools", "menu.feedbacks"), icon: <Feedback />, route: "/tools/feedbackPrompts" },
+    //   )
+    // }
     if (this.enablers(RIGHT_EXTRACTS)) {
       entries.push(
         { text: formatMessage(this.props.intl, "tools", "menu.extracts"), icon: <SaveAlt />, route: "/tools/extracts" },
@@ -52,21 +54,21 @@ class ToolsMainMenu extends Component {
         { text: formatMessage(this.props.intl, "tools", "menu.reports"), icon: <Ballot />, route: "/tools/reports" },
       )
     }
-    if (this.enablers(RIGHT_UTILITIES)) {
-      entries.push(
-        { text: formatMessage(this.props.intl, "tools", "menu.utilities"), icon: <Build />, route: "/tools/utilities" },
-      )
-    }
+    // if (this.enablers(RIGHT_UTILITIES)) {
+    //   entries.push(
+    //     { text: formatMessage(this.props.intl, "tools", "menu.utilities"), icon: <Build />, route: "/tools/utilities" },
+    //   )
+    // }
     if (rights.includes(RIGHT_FUNDING)) {
       entries.push(
         { text: formatMessage(this.props.intl, "tools", "menu.funding"), icon: <AccountBalance />, route: "/tools/funding" },
       )
     }
-    if (rights.includes(RIGHT_EMAILSETTING)) {
-      entries.push(
-        { text: formatMessage(this.props.intl, "tools", "menu.emails"), icon: <EmailOutlined />, route: "/tools/emailSettings" }
-      )
-    }
+    // if (rights.includes(RIGHT_EMAILSETTING)) {
+    //   entries.push(
+    //     { text: formatMessage(this.props.intl, "tools", "menu.emails"), icon: <EmailOutlined />, route: "/tools/emailSettings" }
+    //   )
+    // }
     if (!entries.length) return null;
     return (
       <MainMenuContribution
