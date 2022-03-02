@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 
 import { useTranslations, ConstantBasedPicker, baseApiUrl, ProgressOrError, apiHeaders } from "@openimis/fe-core";
-import clsx from "clsx";
 import { useSelector } from "react-redux";
-
 import {
-  Paper,
   Box,
   Grid,
   Typography,
@@ -19,7 +16,6 @@ import {
   DialogTitle,
   DialogActions,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import {
   STRATEGY_INSERT,
   STRATEGY_INSERT_UPDATE,
@@ -29,34 +25,7 @@ import {
   RIGHT_REGISTERS_HEALTH_FACILITIES,
   RIGHT_REGISTERS_LOCATIONS,
 } from "../constants";
-
-const useBlockStyles = makeStyles((theme) => ({
-  block: {
-    ...theme.paper.paper,
-    margin: 0,
-  },
-  header: {
-    ...theme.paper.header,
-    ...theme.paper.title,
-  },
-}));
-
-const Block = (props) => {
-  const { title, className, children } = props;
-  const classes = useBlockStyles();
-  return (
-    <Paper className={clsx(classes.block, className)}>
-      {title && (
-        <Box className={classes.header}>
-          <Typography>{title}</Typography>
-        </Box>
-      )}
-      <Box overflow="auto">
-        <Box m="10px">{children}</Box>
-      </Box>
-    </Paper>
-  );
-};
+import Block from "../components/Block";
 
 const DIAGNOSES_STRATEGIES = [STRATEGY_INSERT, STRATEGY_UPDATE, STRATEGY_INSERT_UPDATE, STRATEGY_INSERT_UPDATE_DELETE];
 const LOCATIONS_STRATEGIES = [STRATEGY_INSERT, STRATEGY_UPDATE, STRATEGY_INSERT_UPDATE];

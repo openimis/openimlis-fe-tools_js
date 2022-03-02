@@ -36,5 +36,10 @@
   "tools.RegistersPage.UploadDialog.created": "Created:",
   "tools.RegistersPage.UploadDialog.updated": "Updated:",
   "tools.RegistersPage.UploadDialog.errors": "Errors:",
-  "tools.RegistersPage.UploadDialog.deleted": "Deleted:"
+  "tools.RegistersPage.UploadDialog.deleted": "Deleted:",
+  "tools.ExtractsPage.OfficerDownloadBlock.title": "Download Data for Officer",
+  "tools.ExtractsPage.OfficerDownloadBlock.downloadFeedbacksBtn": "Download Feedbacks",
+  "tools.ExtractsPage.OfficerDownloadBlock.downloadRenewalsBtn": "Download Renewals",
+  "tools.ExtractsPage.DownloadMasterData.title": "Download Master Data",
+  "tools.ExtractsPage.DownloadMasterData.downloadBtn": "Download"
 }
