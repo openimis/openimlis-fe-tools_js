@@ -51,7 +51,7 @@ const RegistersPage = () => {
 
   const REGISTERS_URL = `${baseApiUrl}/tools/registers`;
 
-  const onRegisterDownload = (path) => (e) => window.open(`${REGISTERS_URL}/${path}`);
+  const onRegisterDownload = (register) => (e) => window.open(`${REGISTERS_URL}/download_${register}`);
   const onDialogClose = (reason) => {
     if (reason === "escapeKeyDown" || reason === "backdropClick") {
       return;
@@ -59,7 +59,7 @@ const RegistersPage = () => {
     setDialogState({ open: false });
   };
 
-  const onSubmit = async (values, path) => {
+  const onSubmit = async (values, register) => {
     setDialogState({
       open: true,
       isLoading: true,
@@ -72,7 +72,7 @@ const RegistersPage = () => {
     formData.append("strategy", values.strategy);
 
     try {
-      const response = await fetch(`${REGISTERS_URL}/${path}`, {
+      const response = await fetch(`${REGISTERS_URL}/upload_${register}`, {
         headers: apiHeaders,
         body: formData,
         method: "POST",
