@@ -44,11 +44,12 @@ class ToolsMainMenu extends Component {
     //     { text: formatMessage(this.props.intl, "tools", "menu.feedbacks"), icon: <Feedback />, route: "/tools/feedbackPrompts" },
     //   )
     // }
-    if (this.enablers(RIGHT_EXTRACTS)) {
-      entries.push(
-        { text: formatMessage(this.props.intl, "tools", "menu.extracts"), icon: <SaveAlt />, route: "/tools/extracts" },
-      )
-    }
+    // Extracts page is not implemented in the modular version yet. As it's not used as of now.
+    // if (this.enablers(RIGHT_EXTRACTS)) {
+    //   entries.push(
+    //     { text: formatMessage(this.props.intl, "tools", "menu.extracts"), icon: <SaveAlt />, route: "/tools/extracts" },
+    //   )
+    // }
     if (this.enablers(RIGHT_REPORTS)) {
       entries.push(
         { text: formatMessage(this.props.intl, "tools", "menu.reports"), icon: <Ballot />, route: "/tools/reports" },
