@@ -1,7 +1,17 @@
 import React, { Component } from "react";
-import { injectIntl } from 'react-intl';
+import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
-import { AccountBalance, Autorenew, Ballot, Build, EmailOutlined, Feedback, ImportExport, SaveAlt, Settings } from "@material-ui/icons";
+import {
+  AccountBalance,
+  Autorenew,
+  Ballot,
+  Build,
+  EmailOutlined,
+  Feedback,
+  ImportExport,
+  SaveAlt,
+  Settings,
+} from "@material-ui/icons";
 import { formatMessage, MainMenuContribution, withModulesManager } from "@openimis/fe-core";
 import {
   RIGHT_REGISTERS,
@@ -15,22 +25,23 @@ import {
 } from "../constants";
 
 class ToolsMainMenu extends Component {
-
-  enablers = enablers => {
+  enablers = (enablers) => {
     var e;
     for (e of enablers) {
       if (this.props.rights.includes(e)) return true;
-    };
+    }
     return false;
-  }
+  };
 
   render() {
     const { rights } = this.props;
     let entries = [];
     if (this.enablers(RIGHT_REGISTERS)) {
-      entries.push(
-        { text: formatMessage(this.props.intl, "tools", "menu.registers"), icon: <ImportExport />, route: "/tools/registers" }
-      )
+      entries.push({
+        text: formatMessage(this.props.intl, "tools", "menu.registers"),
+        icon: <ImportExport />,
+        route: "/tools/registers",
+      });
     }
     // Renewals are preformed automatically now.
     // if (rights.includes(RIGHT_POLICY_RENEWALS)) {
@@ -51,20 +62,17 @@ class ToolsMainMenu extends Component {
     //   )
     // }
     if (this.enablers(RIGHT_REPORTS)) {
-      entries.push(
-        { text: formatMessage(this.props.intl, "tools", "menu.reports"), icon: <Ballot />, route: "/tools/reports" },
-      )
+      entries.push({
+        text: formatMessage(this.props.intl, "tools", "menu.reports"),
+        icon: <Ballot />,
+        route: "/tools/reports",
+      });
     }
     // if (this.enablers(RIGHT_UTILITIES)) {
     //   entries.push(
     //     { text: formatMessage(this.props.intl, "tools", "menu.utilities"), icon: <Build />, route: "/tools/utilities" },
     //   )
     // }
-    if (rights.includes(RIGHT_FUNDING)) {
-      entries.push(
-        { text: formatMessage(this.props.intl, "tools", "menu.funding"), icon: <AccountBalance />, route: "/tools/funding" },
-      )
-    }
     // if (rights.includes(RIGHT_EMAILSETTING)) {
     //   entries.push(
     //     { text: formatMessage(this.props.intl, "tools", "menu.emails"), icon: <EmailOutlined />, route: "/tools/emailSettings" }
@@ -82,8 +90,8 @@ class ToolsMainMenu extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   rights: !!state.core && !!state.core.user && !!state.core.user.i_user ? state.core.user.i_user.rights : [],
-})
+});
 
 export default injectIntl(withModulesManager(connect(mapStateToProps)(ToolsMainMenu)));
