@@ -1,28 +1,9 @@
+import { Ballot, ImportExport, Settings } from "@material-ui/icons";
+import { formatMessage, MainMenuContribution, withModulesManager } from "@openimis/fe-core";
 import React, { Component } from "react";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
-import {
-  AccountBalance,
-  Autorenew,
-  Ballot,
-  Build,
-  EmailOutlined,
-  Feedback,
-  ImportExport,
-  SaveAlt,
-  Settings,
-} from "@material-ui/icons";
-import { formatMessage, MainMenuContribution, withModulesManager } from "@openimis/fe-core";
-import {
-  RIGHT_REGISTERS,
-  RIGHT_EXTRACTS,
-  RIGHT_REPORTS,
-  RIGHT_UTILITIES,
-  RIGHT_FUNDING,
-  RIGHT_POLICY_RENEWALS,
-  RIGHT_FEEDBACK_PROMPT,
-  RIGHT_EMAILSETTING,
-} from "../constants";
+import { RIGHT_REGISTERS, RIGHT_REPORTS } from "../constants";
 
 class ToolsMainMenu extends Component {
   enablers = (enablers) => {

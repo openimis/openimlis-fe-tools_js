@@ -1,11 +1,18 @@
-import React, { Component } from "react";
-import { ProxyPage } from "@openimis/fe-core";
+import { makeStyles } from "@material-ui/styles";
+import React from "react";
+import ReportSearcher from "../components/ReportSearcher";
 
+const useStyles = makeStyles((theme) => ({
+  page: theme.page,
+}));
 
-class ReportsPage extends Component {
-    render() {
-        return <ProxyPage url="/Reports.aspx" />
-    }
-}
+const ReportsPage = () => {
+  const classes = useStyles();
 
-export { ReportsPage };
+  return (
+    <div className={classes.page}>
+      <ReportSearcher />
+    </div>
+  );
+};
+export default ReportsPage;
