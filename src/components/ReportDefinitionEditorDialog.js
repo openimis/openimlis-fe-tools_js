@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Box, Dialog, DialogActions, DialogContent, DialogTitle, CircularProgress } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { useTranslations, useModulesManager } from "@openimis/fe-core";
 import ReportBro from "./ReportBro";
