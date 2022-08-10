@@ -264,7 +264,7 @@ const RegistersPage = () => {
                             control={
                               <Checkbox
                                 checked={forms.locations?.dryRun}
-                                onChange={(e) => handleFieldChange("diagnoses", "dryRun", e.target.checked)}
+                                onChange={(e) => handleFieldChange("locations", "dryRun", e.target.checked)}
                               />
                             }
                           />
