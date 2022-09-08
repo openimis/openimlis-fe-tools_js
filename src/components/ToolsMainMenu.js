@@ -1,9 +1,9 @@
-import { Ballot, ImportExport, Settings } from "@material-ui/icons";
+import {Ballot, ImportExport, SaveAlt, Settings} from "@material-ui/icons";
 import { formatMessage, MainMenuContribution, withModulesManager } from "@openimis/fe-core";
 import React, { Component } from "react";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
-import { RIGHT_REGISTERS, RIGHT_REPORTS } from "../constants";
+import { RIGHT_REGISTERS, RIGHT_REPORTS, RIGHT_EXTRACTS } from "../constants";
 
 class ToolsMainMenu extends Component {
   enablers = (enablers) => {
@@ -37,11 +37,11 @@ class ToolsMainMenu extends Component {
     //   )
     // }
     // Extracts page is not implemented in the modular version yet. As it's not used as of now.
-    // if (this.enablers(RIGHT_EXTRACTS)) {
-    //   entries.push(
-    //     { text: formatMessage(this.props.intl, "tools", "menu.extracts"), icon: <SaveAlt />, route: "/tools/extracts" },
-    //   )
-    // }
+    if (this.enablers(RIGHT_EXTRACTS)) {
+      entries.push(
+        { text: formatMessage(this.props.intl, "tools", "menu.extracts"), icon: <SaveAlt />, route: "/tools/extracts" },
+      )
+    }
     if (this.enablers(RIGHT_REPORTS)) {
       entries.push({
         text: formatMessage(this.props.intl, "tools", "menu.reports"),
