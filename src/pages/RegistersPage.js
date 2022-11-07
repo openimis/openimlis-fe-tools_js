@@ -14,8 +14,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-  DialogActions,
-  Popper
+  DialogActions
 } from "@material-ui/core";
 import {
   STRATEGY_INSERT,
