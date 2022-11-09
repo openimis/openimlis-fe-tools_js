@@ -14,7 +14,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-  DialogActions,
+  DialogActions
 } from "@material-ui/core";
 import {
   STRATEGY_INSERT,
@@ -36,6 +36,7 @@ const RegistersPage = () => {
   const [forms, setForms] = useState({});
   const rights = useSelector((state) => state.core?.user?.i_user?.rights ?? []);
   const [dialogState, setDialogState] = useState({});
+  const [popupState, setPopupState] = useState({});
 
   const hasRights = (rightsList) => rightsList.every((x) => rights.includes(x));
 
@@ -52,6 +53,29 @@ const RegistersPage = () => {
   const REGISTERS_URL = `${baseApiUrl}/tools/registers`;
 
   const onRegisterDownload = (register) => (e) => window.open(`${REGISTERS_URL}/download_${register}`);
+  
+  const openPopup = (e, uploadType) => {
+    setPopupState({
+      open: true,
+      openLocations: uploadType === 'locations',
+      openDiagnosis: uploadType === 'diagnosis', 
+      openHF: uploadType === 'hf',
+      anchorEl: e.currentTarget,
+      error: null,
+    });
+  }
+  
+  const onPopupClose = (e) => {
+    setPopupState({
+      open: false,
+      openLocations: false, 
+      openDiagnosis: false, 
+      openHF: false, 
+      anchorEl: null,
+      error: null,
+    });
+  }
+
   const onDialogClose = (reason) => {
     if (reason === "escapeKeyDown" || reason === "backdropClick") {
       return;
@@ -64,6 +88,11 @@ const RegistersPage = () => {
       open: true,
       isLoading: true,
       data: null,
+      error: null,
+    });
+    setPopupState({
+      open: false,
+      anchorEl: null,
       error: null,
     });
     const formData = new FormData();
@@ -100,7 +129,7 @@ const RegistersPage = () => {
       });
     }
   };
-
+  console.log("TOOLS RENDERING")
   return (
     <>
       {dialogState?.open && (
@@ -203,14 +232,31 @@ const RegistersPage = () => {
                           />
                         </Grid>
                         <Grid item>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={() => onSubmit(forms.diagnoses, "diagnoses")}
-                            disabled={!(forms.diagnoses?.file && forms.diagnoses?.strategy)}
-                          >
-                            {formatMessage("uploadBtn")}
-                          </Button>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={(e) => openPopup(e, 'diagnosis')}
+                          disabled={!(forms.diagnoses?.file && forms.diagnoses?.strategy)}
+                        >
+                          {formatMessage("uploadBtn")}
+                        </Button>
+                        {popupState?.open && popupState?.openDiagnosis && (
+                        <Dialog open onClose={onPopupClose} fullWidth maxWidth="sm">
+                            <DialogTitle>{formatMessage("UploadDialog.confirmDiagnoses")}</DialogTitle>
+                            <DialogActions>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={() => onSubmit(forms.diagnoses, "diagnoses")}
+                              disabled={!(forms.diagnoses?.file && forms.diagnoses?.strategy)}
+                            >
+                              {formatMessage("uploadBtn")}
+                            </Button>
+                            <Button onClick={onPopupClose} variant="contained">
+                              {formatMessage("cancelBtn")}
+                            </Button>
+                            </DialogActions>
+                          </Dialog>)}
                         </Grid>
                       </Grid>
                     </form>
@@ -270,14 +316,31 @@ const RegistersPage = () => {
                           />
                         </Grid>
                         <Grid item>
-                          <Button
+                        <Button
                             variant="contained"
                             color="primary"
-                            onClick={() => onSubmit(forms.locations, "locations")}
+                            onClick={(e) => openPopup(e, 'locations')}
                             disabled={!(forms.locations?.file && forms.locations?.strategy)}
                           >
-                            {formatMessage("uploadBtn")}
-                          </Button>
+                          {formatMessage("uploadBtn")}
+                        </Button>
+                        {popupState?.open && popupState?.openLocations && (
+                        <Dialog open onClose={onPopupClose} fullWidth maxWidth="sm">
+                            <DialogTitle>{formatMessage("UploadDialog.confirmLocations")}</DialogTitle>
+                            <DialogActions>
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() => onSubmit(forms.locations, "locations")}
+                                disabled={!(forms.locations?.file && forms.locations?.strategy)}
+                              >
+                              {formatMessage("uploadBtn")}
+                              </Button>
+                              <Button onClick={onPopupClose} variant="contained">
+                                {formatMessage("cancelBtn")}
+                              </Button>
+                            </DialogActions>
+                          </Dialog>)}
                         </Grid>
                       </Grid>
                     </form>
@@ -337,14 +400,31 @@ const RegistersPage = () => {
                           />
                         </Grid>
                         <Grid item>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={() => onSubmit(forms.healthFacilities, "healthfacilities")}
-                            disabled={!(forms.healthFacilities?.file && forms.healthFacilities?.strategy)}
-                          >
-                            {formatMessage("uploadBtn")}
-                          </Button>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={(e) => openPopup(e, 'hf')}
+                          disabled={!(forms.healthFacilities?.file && forms.healthFacilities?.strategy)}
+                        >
+                        {formatMessage("uploadBtn")}
+                        </Button>
+                        {popupState?.open && popupState?.openHF && (
+                        <Dialog open onClose={onPopupClose} fullWidth maxWidth="sm">
+                            <DialogTitle>{formatMessage("UploadDialog.confirmHF")}</DialogTitle>
+                            <DialogActions>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() => onSubmit(forms.healthFacilities, "healthfacilities")}
+                                disabled={!(forms.healthFacilities?.file && forms.healthFacilities?.strategy)}
+                              >
+                                {formatMessage("uploadBtn")}
+                            </Button>
+                            <Button onClick={onPopupClose} variant="contained">
+                              {formatMessage("cancelBtn")}
+                            </Button>
+                            </DialogActions>
+                          </Dialog>)}
                         </Grid>
                       </Grid>
                     </form>
