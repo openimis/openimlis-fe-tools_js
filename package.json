@@ -1,6 +1,6 @@
 {
   "name": "@openimis/fe-tools",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "license": "AGPL-3.0-only",
   "description": "openIMIS Frontend Tools reference module",
   "repository": "openimis/openimis-fe-tools_js",
