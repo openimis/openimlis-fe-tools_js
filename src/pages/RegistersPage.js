@@ -24,6 +24,8 @@ import {
   RIGHT_REGISTERS_DIAGNOSES,
   RIGHT_REGISTERS_HEALTH_FACILITIES,
   RIGHT_REGISTERS_LOCATIONS,
+  RIGHT_REGISTERS_ITEMS,
+  RIGHT_REGISTERS_SERVICES,
 } from "../constants";
 import Block from "../components/Block";
 
@@ -53,24 +55,24 @@ const RegistersPage = () => {
   const REGISTERS_URL = `${baseApiUrl}/tools/registers`;
 
   const onRegisterDownload = (register) => (e) => window.open(`${REGISTERS_URL}/download_${register}`);
-  
+
   const openPopup = (e, uploadType) => {
     setPopupState({
       open: true,
       openLocations: uploadType === 'locations',
-      openDiagnosis: uploadType === 'diagnosis', 
+      openDiagnosis: uploadType === 'diagnosis',
       openHF: uploadType === 'hf',
       anchorEl: e.currentTarget,
       error: null,
     });
   }
-  
+
   const onPopupClose = (e) => {
     setPopupState({
       open: false,
-      openLocations: false, 
-      openDiagnosis: false, 
-      openHF: false, 
+      openLocations: false,
+      openDiagnosis: false,
+      openHF: false,
       anchorEl: null,
       error: null,
     });
@@ -428,6 +430,38 @@ const RegistersPage = () => {
                         </Grid>
                       </Grid>
                     </form>
+                  </Grid>
+                </Grid>
+              </Block>
+            </Grid>
+          )}
+          {hasRights(RIGHT_REGISTERS_ITEMS) && (
+            <Grid item xs={4}>
+              <Block title={formatMessage("itemsBlockTitle")}>
+                <Grid container spacing={2} direction="column">
+                  <Grid item>
+                    <Button variant="contained" color="primary" onClick={onRegisterDownload("items")}>
+                      {formatMessage("downloadBtn")}
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Divider fullWidth />
+                  </Grid>
+                </Grid>
+              </Block>
+            </Grid>
+          )}
+          {hasRights(RIGHT_REGISTERS_SERVICES) && (
+            <Grid item xs={4}>
+              <Block title={formatMessage("servicesBlockTitle")}>
+                <Grid container spacing={2} direction="column">
+                  <Grid item>
+                    <Button variant="contained" color="primary" onClick={onRegisterDownload("services")}>
+                      {formatMessage("downloadBtn")}
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Divider fullWidth />
                   </Grid>
                 </Grid>
               </Block>

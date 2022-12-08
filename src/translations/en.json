@@ -82,5 +82,7 @@
   "tools.GenerateReportPicker.cancelBtn": "Cancel",
   "tools.GenerateReportPicker.generateBtn": "Generate",
   "tools.GenerateReportPicker.formatLabel": "Output Format",
-  "tools.GenerateReportPicker.triggerBtn": "Generate Report"
+  "tools.GenerateReportPicker.triggerBtn": "Generate Report",
+  "tools.RegistersPage.itemsBlockTitle": "Medical Items",
+  "tools.RegistersPage.servicesBlockTitle": "Medical Services"
 }
