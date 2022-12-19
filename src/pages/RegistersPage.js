@@ -32,6 +32,7 @@ import Block from "../components/Block";
 const DIAGNOSES_STRATEGIES = [STRATEGY_INSERT, STRATEGY_UPDATE, STRATEGY_INSERT_UPDATE, STRATEGY_INSERT_UPDATE_DELETE];
 const LOCATIONS_STRATEGIES = [STRATEGY_INSERT, STRATEGY_UPDATE, STRATEGY_INSERT_UPDATE];
 const HEALTH_FACILITIES_STRATEGIES = LOCATIONS_STRATEGIES;
+const MEDICAL_ITEMS_STRATEGIES = DIAGNOSES_STRATEGIES;
 
 const RegistersPage = () => {
   const { formatMessage } = useTranslations("tools.RegistersPage");
@@ -62,6 +63,7 @@ const RegistersPage = () => {
       openLocations: uploadType === 'locations',
       openDiagnosis: uploadType === 'diagnosis',
       openHF: uploadType === 'hf',
+      openItems: uploadType === 'items',
       anchorEl: e.currentTarget,
       error: null,
     });
@@ -73,6 +75,7 @@ const RegistersPage = () => {
       openLocations: false,
       openDiagnosis: false,
       openHF: false,
+      openItems: false,
       anchorEl: null,
       error: null,
     });
@@ -446,6 +449,74 @@ const RegistersPage = () => {
                   </Grid>
                   <Grid item>
                     <Divider fullWidth />
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="h6">{formatMessage("items.uploadLabel")}</Typography>
+                  </Grid>
+                  <Grid item>
+                    <form noValidate>
+                      <Grid container spacing={1} direction="column">
+                        <Grid item>
+                          <Input
+                            onChange={(event) => handleFieldChange("items", "file", event.target.files[0])}
+                            required
+                            id="import-button"
+                            inputProps={{
+                              accept: ".xml, application/xml, text/xml",
+                            }}
+                            type="file"
+                          />
+                        </Grid>
+                        <Grid item>
+                          <ConstantBasedPicker
+                            module="tools"
+                            label="strategyPicker"
+                            onChange={(value) => handleFieldChange("items", "strategy", value)}
+                            required
+                            constants={MEDICAL_ITEMS_STRATEGIES}
+                            withNull
+                          />
+                        </Grid>
+                        <Grid item>
+                          <FormControlLabel
+                            label={formatMessage("dryRunLabel")}
+                            control={
+                              <Checkbox
+                                checked={forms.items?.dryRun}
+                                onChange={(e) => handleFieldChange("items", "dryRun", e.target.checked)}
+                              />
+                            }
+                          />
+                        </Grid>
+                        <Grid item>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={(e) => openPopup(e, 'items')}
+                          disabled={!(forms.items?.file && forms.items?.strategy)}
+                        >
+                          {formatMessage("uploadBtn")}
+                        </Button>
+                        {popupState?.open && popupState?.openItems && (
+                        <Dialog open onClose={onPopupClose} fullWidth maxWidth="sm">
+                            <DialogTitle>{formatMessage("UploadDialog.confirmItems")}</DialogTitle>
+                            <DialogActions>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={() => onSubmit(forms.items, "items")}
+                              disabled={!(forms.items?.file && forms.items?.strategy)}
+                            >
+                              {formatMessage("uploadBtn")}
+                            </Button>
+                            <Button onClick={onPopupClose} variant="contained">
+                              {formatMessage("cancelBtn")}
+                            </Button>
+                            </DialogActions>
+                          </Dialog>)}
+                        </Grid>
+                      </Grid>
+                    </form>
                   </Grid>
                 </Grid>
               </Block>
