@@ -16,7 +16,6 @@ import { People, Autorenew as RenewIcon, Keyboard } from "@material-ui/icons";
 import FeedbackIcon from "@material-ui/icons/SpeakerNotesOutlined";
 import Block from "../components/Block";
 import { RIGHT_EXTRACTS } from "../constants";
-import {string} from "prop-types";
 
 const EXTRACTS_URL = `${baseApiUrl}/tools/extracts`;
 
