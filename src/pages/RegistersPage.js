@@ -26,6 +26,11 @@ import {
   RIGHT_REGISTERS_LOCATIONS,
   RIGHT_REGISTERS_ITEMS,
   RIGHT_REGISTERS_SERVICES,
+  EXPORT_TYPE_XLSX,
+  EXPORT_TYPE_XLS,
+  EXPORT_TYPE_JSON,
+  EXPORT_TYPE_CSV,
+  EXPORT_TYPE_XML
 } from "../constants";
 import Block from "../components/Block";
 
@@ -34,6 +39,7 @@ const LOCATIONS_STRATEGIES = [STRATEGY_INSERT, STRATEGY_UPDATE, STRATEGY_INSERT_
 const HEALTH_FACILITIES_STRATEGIES = LOCATIONS_STRATEGIES;
 const MEDICAL_ITEMS_STRATEGIES = DIAGNOSES_STRATEGIES;
 const MEDICAL_SERVICES_STRATEGIES = DIAGNOSES_STRATEGIES;
+const EXPORT_TYPES = [EXPORT_TYPE_CSV, EXPORT_TYPE_JSON, EXPORT_TYPE_XLS, EXPORT_TYPE_XLSX, EXPORT_TYPE_XML];
 
 const RegistersPage = () => {
   const { formatMessage } = useTranslations("tools.RegistersPage");
@@ -55,8 +61,16 @@ const RegistersPage = () => {
   };
 
   const REGISTERS_URL = `${baseApiUrl}/tools/registers`;
+  const EXPORTS_URL = `${baseApiUrl}/tools/exports`;
+  const IMPORTS_URL = `${baseApiUrl}/tools/imports`;
 
-  const onRegisterDownload = (register) => (e) => window.open(`${REGISTERS_URL}/download_${register}`);
+  const onRegisterDownload = (register, format) => (e) => {
+    if (format === EXPORT_TYPE_XML) {
+      window.open(`${REGISTERS_URL}/download_${register}`);
+    } else {
+      window.open(`${EXPORTS_URL}/${register}_${format}`);
+    }
+  }
 
   const openPopup = (e, uploadType) => {
     setPopupState({
@@ -103,13 +117,23 @@ const RegistersPage = () => {
       anchorEl: null,
       error: null,
     });
+
+    const fileFormat = values.file.type
     const formData = new FormData();
-    formData.append("dry_run", Boolean(values.dryRun));
     formData.append("file", values.file);
-    formData.append("strategy", values.strategy);
+
+    let url_import;
+
+    if (fileFormat.includes("/xml")) {
+      formData.append("dry_run", Boolean(values.dryRun));
+      formData.append("strategy", values.strategy);
+      url_import = `${REGISTERS_URL}/upload_${register}`;
+    } else {
+      url_import = `${IMPORTS_URL}/${register}`;
+    }
 
     try {
-      const response = await fetch(`${REGISTERS_URL}/upload_${register}`, {
+      const response = await fetch(url_import, {
         headers: apiHeaders,
         body: formData,
         method: "POST",
@@ -125,7 +149,8 @@ const RegistersPage = () => {
         isLoading: false,
         success: payload.success,
         data: payload.data,
-        error: payload.error,
+        generalError: payload.error,
+        uploadErrors: payload.errors,
       });
     } catch (error) {
       console.error(error);
@@ -133,10 +158,11 @@ const RegistersPage = () => {
         open: true,
         isLoading: false,
         data: null,
-        error: error?.message ?? formatMessage("An unknown error occurred. Please contact your administrator."),
+        generalError: error?.message ?? formatMessage("An unknown error occurred. Please contact your administrator."),
       });
     }
   };
+
   console.log("TOOLS RENDERING")
   return (
     <>
@@ -145,7 +171,7 @@ const RegistersPage = () => {
           <DialogTitle>{formatMessage("UploadDialog.title")}</DialogTitle>
           <DialogContent>
             <ProgressOrError progress={dialogState.isLoading} />
-            {dialogState.error && <Box my={1}>{dialogState.error}</Box>}
+            {dialogState.generalError && <Box my={1}>{dialogState.generalError}</Box>}
             {!dialogState.isLoading && dialogState.data && (
               <>
                 <Box my={1}>
@@ -172,9 +198,24 @@ const RegistersPage = () => {
                     <b>{formatMessage("UploadDialog.deleted")}</b> {dialogState.data.deleted}
                   </Box>
                 )}
-                {dialogState.data?.errors?.length > 0 && (
+                {"skipped" in dialogState.data && (
                   <Box my={1}>
-                    <b>{formatMessage("UploadDialog.errors")}</b> {dialogState.data.errors.join(", ")}
+                    <b>{formatMessage("UploadDialog.skipped")}</b> {dialogState.data.skipped}
+                  </Box>
+                )}
+                {"invalid" in dialogState.data && (
+                  <Box my={1}>
+                    <b>{formatMessage("UploadDialog.invalid")}</b> {dialogState.data.invalid}
+                  </Box>
+                )}
+                {"failed" in dialogState.data && (
+                  <Box my={1}>
+                    <b>{formatMessage("UploadDialog.failed")}</b> {dialogState.data.failed}
+                  </Box>
+                )}
+                {dialogState.uploadErrors?.length > 0 && (
+                  <Box my={1}>
+                    <b>{formatMessage("UploadDialog.errors")}</b> {dialogState.uploadErrors.join(", ")}
                   </Box>
                 )}
               </>
@@ -194,7 +235,7 @@ const RegistersPage = () => {
               <Block title={formatMessage("diagnosesBlockTitle")}>
                 <Grid container spacing={2} direction="column">
                   <Grid item>
-                    <Button variant="contained" color="primary" onClick={onRegisterDownload("diagnoses")}>
+                    <Button variant="contained" color="primary" onClick={onRegisterDownload("diagnoses", EXPORT_TYPE_XML)}>
                       {formatMessage("downloadBtn")}
                     </Button>
                   </Grid>
@@ -278,7 +319,7 @@ const RegistersPage = () => {
               <Block title={formatMessage("locationsBlockTitle")}>
                 <Grid container spacing={2} direction="column">
                   <Grid item>
-                    <Button variant="contained" color="primary" onClick={onRegisterDownload("locations")}>
+                    <Button variant="contained" color="primary" onClick={onRegisterDownload("locations", EXPORT_TYPE_XML)}>
                       {formatMessage("downloadBtn")}
                     </Button>
                   </Grid>
@@ -362,7 +403,7 @@ const RegistersPage = () => {
               <Block title={formatMessage("healthFacilitiesBlockTitle")}>
                 <Grid container spacing={2} direction="column">
                   <Grid item>
-                    <Button variant="contained" color="primary" onClick={onRegisterDownload("healthfacilities")}>
+                    <Button variant="contained" color="primary" onClick={onRegisterDownload("healthfacilities", EXPORT_TYPE_XML)}>
                       {formatMessage("downloadBtn")}
                     </Button>
                   </Grid>
@@ -446,9 +487,31 @@ const RegistersPage = () => {
               <Block title={formatMessage("itemsBlockTitle")}>
                 <Grid container spacing={2} direction="column">
                   <Grid item>
-                    <Button variant="contained" color="primary" onClick={onRegisterDownload("items")}>
-                      {formatMessage("downloadBtn")}
-                    </Button>
+                    <Typography variant="h6">{formatMessage("items.downloadLabel")}</Typography>
+                  </Grid>
+                  <Grid item>
+                    <form noValidate>
+                      <Grid container spacing={1} direction="column">
+                        <ConstantBasedPicker
+                          module="tools"
+                          label="formatPicker"
+                          onChange={(value) => handleFieldChange("items", "format", value)}
+                          required
+                          constants={EXPORT_TYPES}
+                          withNull
+                        />
+                        <Grid item>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={onRegisterDownload("items", forms.items?.format)}
+                            disabled={!(forms.items?.format)}
+                          >
+                            {formatMessage("downloadBtn")}
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </form>
                   </Grid>
                   <Grid item>
                     <Divider fullWidth />
@@ -465,11 +528,12 @@ const RegistersPage = () => {
                             required
                             id="import-button"
                             inputProps={{
-                              accept: ".xml, application/xml, text/xml",
+                              accept: ".xml, application/xml, text/xml, .csv, text/csv, .xls, application/vnd.ms-excel, .xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .json, application/json",
                             }}
                             type="file"
                           />
                         </Grid>
+                        <!-- The strategy picker + the dry run box are useless when uploading all formats other than XML. The code should be refactored to display them/take them into account only if the provided file is an XML file. -->
                         <Grid item>
                           <ConstantBasedPicker
                             module="tools"
@@ -530,7 +594,7 @@ const RegistersPage = () => {
               <Block title={formatMessage("servicesBlockTitle")}>
                 <Grid container spacing={2} direction="column">
                   <Grid item>
-                    <Button variant="contained" color="primary" onClick={onRegisterDownload("services")}>
+                    <Button variant="contained" color="primary" onClick={onRegisterDownload("services", EXPORT_TYPE_XML)}>
                       {formatMessage("downloadBtn")}
                     </Button>
                   </Grid>

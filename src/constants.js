@@ -19,3 +19,9 @@ export const STRATEGY_INSERT = "INSERT";
 export const STRATEGY_INSERT_UPDATE = "INSERT_UPDATE";
 export const STRATEGY_UPDATE = "UPDATE";
 export const STRATEGY_INSERT_UPDATE_DELETE = "INSERT_UPDATE_DELETE";
+
+export const EXPORT_TYPE_CSV = "csv";
+export const EXPORT_TYPE_XLS = "xls";
+export const EXPORT_TYPE_XLSX = "xlsx";
+export const EXPORT_TYPE_JSON = "json";
+export const EXPORT_TYPE_XML = "xml";
