@@ -68,7 +68,7 @@ const RegistersPage = () => {
     if (format === EXPORT_TYPE_XML) {
       window.open(`${REGISTERS_URL}/download_${register}`);
     } else {
-      window.open(`${EXPORTS_URL}/${register}_${format}`);
+      window.open(`${EXPORTS_URL}/${register}?file_format=${format}`);
     }
   }
 
@@ -533,7 +533,7 @@ const RegistersPage = () => {
                             type="file"
                           />
                         </Grid>
-                        <!-- The strategy picker + the dry run box are useless when uploading all formats other than XML. The code should be refactored to display them/take them into account only if the provided file is an XML file. -->
+                        {/* The strategy picker + the dry run box are useless when uploading all formats other than XML. The code should be refactored to display them/take them into account only if the provided file is an XML file. */}
                         <Grid item>
                           <ConstantBasedPicker
                             module="tools"
@@ -594,9 +594,31 @@ const RegistersPage = () => {
               <Block title={formatMessage("servicesBlockTitle")}>
                 <Grid container spacing={2} direction="column">
                   <Grid item>
-                    <Button variant="contained" color="primary" onClick={onRegisterDownload("services", EXPORT_TYPE_XML)}>
-                      {formatMessage("downloadBtn")}
-                    </Button>
+                    <Typography variant="h6">{formatMessage("services.downloadLabel")}</Typography>
+                  </Grid>
+                  <Grid item>
+                    <form noValidate>
+                      <Grid container spacing={1} direction="column">
+                        <ConstantBasedPicker
+                          module="tools"
+                          label="formatPicker"
+                          onChange={(value) => handleFieldChange("services", "format", value)}
+                          required
+                          constants={EXPORT_TYPES}
+                          withNull
+                        />
+                        <Grid item>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={onRegisterDownload("services", forms.services?.format)}
+                            disabled={!(forms.services?.format)}
+                          >
+                            {formatMessage("downloadBtn")}
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </form>
                   </Grid>
                   <Grid item>
                     <Divider fullWidth />
@@ -613,11 +635,12 @@ const RegistersPage = () => {
                             required
                             id="import-button"
                             inputProps={{
-                              accept: ".xml, application/xml, text/xml",
+                              accept: ".xml, application/xml, text/xml, .csv, text/csv, .xls, application/vnd.ms-excel, .xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .json, application/json",
                             }}
                             type="file"
                           />
                         </Grid>
+                        {/* The strategy picker + the dry run box are useless when uploading all formats other than XML. The code should be refactored to display them/take them into account only if the provided file is an XML file. */}
                         <Grid item>
                           <ConstantBasedPicker
                             module="tools"
@@ -650,7 +673,7 @@ const RegistersPage = () => {
                         </Button>
                         {popupState?.open && popupState?.openServices && (
                         <Dialog open onClose={onPopupClose} fullWidth maxWidth="sm">
-                            <DialogTitle>{formatMessage("UploadDialog.confirmItems")}</DialogTitle>
+                            <DialogTitle>{formatMessage("UploadDialog.confirmServices")}</DialogTitle>
                             <DialogActions>
                             <Button
                               variant="contained"
