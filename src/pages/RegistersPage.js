@@ -589,7 +589,7 @@ const RegistersPage = () => {
               </Block>
             </Grid>
           )}
-          {hasRights(RIGHT_REGISTERS_ITEMS) && (
+          {hasRights(RIGHT_REGISTERS_SERVICES) && (
             <Grid item xs={4}>
               <Block title={formatMessage("servicesBlockTitle")}>
                 <Grid container spacing={2} direction="column">
@@ -647,7 +647,7 @@ const RegistersPage = () => {
                             label="strategyPicker"
                             onChange={(value) => handleFieldChange("services", "strategy", value)}
                             required
-                            constants={MEDICAL_ITEMS_STRATEGIES}
+                            constants={MEDICAL_SERVICES_STRATEGIES}
                             withNull
                           />
                         </Grid>
