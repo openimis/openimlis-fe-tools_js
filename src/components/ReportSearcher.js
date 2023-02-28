@@ -1,20 +1,16 @@
 import React, { useCallback, useState } from "react";
 import { useReportsQuery } from "../hooks";
-import { useSelector } from "react-redux";
 import { Searcher, useTranslations, useModulesManager } from "@openimis/fe-core";
 import GenerateReportPicker from "./GenerateReportPicker";
 import { Box, Button } from "@material-ui/core";
 import ReportDefinitionEditorDialog from "./ReportDefinitionEditorDialog";
-import { RIGHT_REPORTS } from "../constants";
 
 const HEADERS = ["tools.report.description", "tools.report.module", "tools.report.name", ""];
 
 const ReportSearcher = () => {
   const modulesManager = useModulesManager();
   const { formatMessageWithValues, formatMessage } = useTranslations("tools", modulesManager);
-  const rights = useSelector((state) => state.core?.user?.i_user?.rights ?? []);
-  const filteredRights = RIGHT_REPORTS.filter(value => rights.includes(value));
-  const { data, isLoading, error, refetch } = useReportsQuery({ rights: filteredRights });
+  const { data, isLoading, error, refetch } = useReportsQuery();
   const [editedReport, setEditedReport] = useState();
   const itemFormatters = useCallback(
     () => [
