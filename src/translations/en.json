@@ -35,6 +35,7 @@
   "tools.RegistersPage.UploadDialog.confirmDiagnoses": "Are you sure you want to upload a new list of diagnoses?",
   "tools.RegistersPage.UploadDialog.confirmItems": "Are you sure you want to upload a new list of medical items?",
   "tools.RegistersPage.UploadDialog.confirmServices": "Are you sure you want to upload a new list of medical services?",
+  "tools.RegistersPage.UploadDialog.confirmInsurees": "Are you sure you want to upload a new list of insurees?",
   "tools.RegistersPage.locationsBlockTitle": "Locations",
   "tools.RegistersPage.locations.downloadLabel": "Download Locations",
   "tools.RegistersPage.locations.uploadLabel": "Upload Locations",
@@ -100,5 +101,8 @@
   "tools.GenerateReportPicker.formatLabel": "Output Format",
   "tools.GenerateReportPicker.triggerBtn": "Generate Report",
   "tools.RegistersPage.itemsBlockTitle": "Medical Items",
-  "tools.RegistersPage.servicesBlockTitle": "Medical Services"
+  "tools.RegistersPage.servicesBlockTitle": "Medical Services",
+  "tools.RegistersPage.insureesBlockTitle": "Insurees",
+  "tools.RegistersPage.insurees.uploadLabel": "Upload Insurees",
+  "tools.RegistersPage.insurees.downloadLabel": "Download Insurees"
 }
