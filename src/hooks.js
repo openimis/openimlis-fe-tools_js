@@ -1,19 +1,18 @@
 import { useGraphqlMutation, useGraphqlQuery } from "@openimis/fe-core";
 
-export const useReportsQuery = (config) => {
+export const useReportsQuery = ({ rights }, config) => {
   const { isLoading, error, data, refetch } = useGraphqlQuery(
     `
-  query useReportsQuery {
-    reports {
+  query useReportsQuery ($rights: [String]) {
+    reports (permissions: $rights) {
         name
         module
         description
       }
     }`,
-    {},
+    { rights },
     config
   );
-
   return { isLoading, error, refetch, data };
 };
 
