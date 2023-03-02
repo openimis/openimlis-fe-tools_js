@@ -14,9 +14,6 @@ export const RIGHT_REPORTS = [
   131219, 131220, 131221, 131222, 131223,
 ];
 export const RIGHT_UTILITIES = [131301, 131302, 131303, 131304];
-// export const RIGHT_INSUREE_ADD = 101102;
-// export const RIGHT_INSUREE_EDIT = 101103;
-// export const RIGHT_INSUREE_DELETE = 101104;
 export const RIGHT_REGISTERS_INSUREES = [101102];
 export const RIGHT_FUNDING = 131401;
 export const RIGHT_POLICY_RENEWALS = 101205; // cfr.UsersBL.vb : that menu entry is provided when user has PolicyRenew!

@@ -200,7 +200,6 @@ const RegistersPage = () => {
         uploadErrors: payload.errors,
       });
     } catch (error) {
-      console.error(error);
       setDialogState({
         open: true,
         isLoading: false,
