@@ -35,11 +35,18 @@ import {
   RIGHT_REGISTERS_LOCATIONS,
   RIGHT_REGISTERS_ITEMS,
   RIGHT_REGISTERS_SERVICES,
+  RIGHT_REGISTERS_INSUREES,
   EXPORT_TYPE_XLSX,
   EXPORT_TYPE_XLS,
   EXPORT_TYPE_JSON,
   EXPORT_TYPE_CSV,
   EXPORT_TYPE_XML,
+  INSUREES_TYPE,
+  LOCATIONS_TYPE,
+  DIAGNOSIS_TYPE,
+  HF_TYPE,
+  ITEMS_TYPE,
+  SERVICES_TYPE,
 } from "../constants";
 
 const DIAGNOSES_STRATEGIES = [
@@ -72,9 +79,11 @@ const RegistersPage = () => {
   const [dialogState, setDialogState] = useState({});
   const [popupState, setPopupState] = useState({});
 
-  console.log("forms", forms);
-  // console.log("dialogState", dialogState);
-  // console.log("popupState", popupState);
+  const REGISTERS_URL = `${baseApiUrl}/tools/registers`;
+  const EXPORTS_URL = `${baseApiUrl}/tools/exports`;
+  const IMPORTS_URL = `${baseApiUrl}/tools/imports`;
+  const INSUREES_IMPORT_URL = `${baseApiUrl}/im_export/imports`;
+  const INSUREES_EXPORT_URL = `${baseApiUrl}/im_export/exports`;
 
   const hasRights = (rightsList) => rightsList.every((x) => rights.includes(x));
 
@@ -88,14 +97,11 @@ const RegistersPage = () => {
     });
   };
 
-  const REGISTERS_URL = `${baseApiUrl}/tools/registers`;
-  const EXPORTS_URL = `${baseApiUrl}/tools/exports`;
-  const IMPORTS_URL = `${baseApiUrl}/tools/imports`;
-  const INSUREES_URL = `${baseApiUrl}/im_export/imports`;
-
   const onRegisterDownload = (register, format) => (e) => {
     if (format === EXPORT_TYPE_XML) {
       window.open(`${REGISTERS_URL}/download_${register}`);
+    } else if (register === INSUREES_TYPE) {
+      window.open(`${INSUREES_EXPORT_URL}/${register}?format=${format}`);
     } else {
       window.open(`${EXPORTS_URL}/${register}?file_format=${format}`);
     }
@@ -104,12 +110,12 @@ const RegistersPage = () => {
   const openPopup = (e, uploadType) => {
     setPopupState({
       open: true,
-      openLocations: uploadType === "locations",
-      openDiagnosis: uploadType === "diagnosis",
-      openHF: uploadType === "hf",
-      openItems: uploadType === "items",
-      openServices: uploadType === "services",
-      openInsurees: uploadType === "insurees",
+      openLocations: uploadType === LOCATIONS_TYPE,
+      openDiagnosis: uploadType === DIAGNOSIS_TYPE,
+      openHF: uploadType === HF_TYPE,
+      openItems: uploadType === ITEMS_TYPE,
+      openServices: uploadType === SERVICES_TYPE,
+      openInsurees: uploadType === INSUREES_TYPE,
       anchorEl: e.currentTarget,
       error: null,
     });
@@ -136,6 +142,11 @@ const RegistersPage = () => {
     setDialogState({ open: false });
   };
 
+  const appendProperties = (formData, dryRun, strategy) => {
+    formData.append("dry_run", dryRun);
+    formData.append("strategy", strategy);
+  };
+
   const onSubmit = async (values, register) => {
     setDialogState({
       open: true,
@@ -149,22 +160,19 @@ const RegistersPage = () => {
       error: null,
     });
 
-    console.log("values", values);
-    console.log("register", register);
-
     const fileFormat = values.file.type;
-    const formData = new FormData();
+    let formData = new FormData();
 
     formData.append("file", values.file);
 
     let url_import;
 
     if (fileFormat.includes("/xml")) {
-      formData.append("dry_run", Boolean(values.dryRun));
-      formData.append("strategy", values.strategy);
+      appendProperties(formData, Boolean(values.dryRun), values.strategy);
       url_import = `${REGISTERS_URL}/upload_${register}`;
-    } else if (register === "insurees") {
-      url_import = `${INSUREES_URL}/${register}`;
+    } else if (register === INSUREES_TYPE) {
+      appendProperties(formData, Boolean(values.dryRun), values.strategy);
+      url_import = `${INSUREES_IMPORT_URL}/${register}`;
     } else {
       url_import = `${IMPORTS_URL}/${register}`;
     }
@@ -200,13 +208,12 @@ const RegistersPage = () => {
         generalError:
           error?.message ??
           formatMessage(
-            "An unknown error occurred. Please contact your administrator."
+            `An error occurred. Please contact your administrator. ${error?.message}`
           ),
       });
     }
   };
 
-  console.log("TOOLS RENDERING");
   return (
     <>
       {dialogState?.open && (
@@ -220,7 +227,7 @@ const RegistersPage = () => {
             {!dialogState.isLoading && dialogState.data && (
               <>
                 <Box my={1}>
-                  <b>Status:</b>{" "}
+                  <b>Status:</b>
                   {dialogState.success
                     ? formatMessage("UploadDialog.success")
                     : formatMessage("UploadDialog.failure")}
@@ -363,7 +370,7 @@ const RegistersPage = () => {
                           <Button
                             variant="contained"
                             color="primary"
-                            onClick={(e) => openPopup(e, "diagnosis")}
+                            onClick={(e) => openPopup(e, DIAGNOSIS_TYPE)}
                             disabled={
                               !(
                                 forms.diagnoses?.file &&
@@ -424,7 +431,10 @@ const RegistersPage = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={onRegisterDownload("locations", EXPORT_TYPE_XML)}
+                      onClick={onRegisterDownload(
+                        LOCATIONS_TYPE,
+                        EXPORT_TYPE_XML
+                      )}
                     >
                       {formatMessage("downloadBtn")}
                     </Button>
@@ -444,7 +454,7 @@ const RegistersPage = () => {
                           <Input
                             onChange={(event) =>
                               handleFieldChange(
-                                "locations",
+                                LOCATIONS_TYPE,
                                 "file",
                                 event.target.files[0]
                               )
@@ -462,7 +472,11 @@ const RegistersPage = () => {
                             module="tools"
                             label="strategyPicker"
                             onChange={(value) =>
-                              handleFieldChange("locations", "strategy", value)
+                              handleFieldChange(
+                                LOCATIONS_TYPE,
+                                "strategy",
+                                value
+                              )
                             }
                             required
                             constants={LOCATIONS_STRATEGIES}
@@ -477,7 +491,7 @@ const RegistersPage = () => {
                                 checked={forms.locations?.dryRun}
                                 onChange={(e) =>
                                   handleFieldChange(
-                                    "locations",
+                                    LOCATIONS_TYPE,
                                     "dryRun",
                                     e.target.checked
                                   )
@@ -490,7 +504,7 @@ const RegistersPage = () => {
                           <Button
                             variant="contained"
                             color="primary"
-                            onClick={(e) => openPopup(e, "locations")}
+                            onClick={(e) => openPopup(e, LOCATIONS_TYPE)}
                             disabled={
                               !(
                                 forms.locations?.file &&
@@ -515,7 +529,7 @@ const RegistersPage = () => {
                                   variant="contained"
                                   color="primary"
                                   onClick={() =>
-                                    onSubmit(forms.locations, "locations")
+                                    onSubmit(forms.locations, LOCATIONS_TYPE)
                                   }
                                   disabled={
                                     !(
@@ -624,7 +638,7 @@ const RegistersPage = () => {
                           <Button
                             variant="contained"
                             color="primary"
-                            onClick={(e) => openPopup(e, "hf")}
+                            onClick={(e) => openPopup(e, HF_TYPE)}
                             disabled={
                               !(
                                 forms.healthFacilities?.file &&
@@ -680,11 +694,10 @@ const RegistersPage = () => {
               </Block>
             </Grid>
           )}
-          {hasRights(RIGHT_REGISTERS_SERVICES) && (
+          {hasRights(RIGHT_REGISTERS_INSUREES) && (
             <Uploader
               acceptableFormats={EXPORT_TYPES}
-              blockName="insurees"
-              blockTitle="insureesBlockTitle"
+              blockName={INSUREES_TYPE}
               formatMessage={formatMessage}
               forms={forms}
               handleFieldChange={handleFieldChange}
@@ -695,6 +708,7 @@ const RegistersPage = () => {
               popupName="openInsurees"
               popupState={popupState}
               strategies={INSUREES_STRATEGIES}
+              blockTitle="insureesBlockTitle"
               downloadLabel="insurees.downloadLabel"
               uploadLabel="insurees.uploadLabel"
               uploadPopupMessage="UploadDialog.confirmInsurees"
@@ -716,7 +730,7 @@ const RegistersPage = () => {
                           module="tools"
                           label="formatPicker"
                           onChange={(value) =>
-                            handleFieldChange("items", "format", value)
+                            handleFieldChange(ITEMS_TYPE, "format", value)
                           }
                           required
                           constants={EXPORT_TYPES}
@@ -727,7 +741,7 @@ const RegistersPage = () => {
                             variant="contained"
                             color="primary"
                             onClick={onRegisterDownload(
-                              "items",
+                              ITEMS_TYPE,
                               forms.items?.format
                             )}
                             disabled={!forms.items?.format}
@@ -753,7 +767,7 @@ const RegistersPage = () => {
                           <Input
                             onChange={(event) =>
                               handleFieldChange(
-                                "items",
+                                ITEMS_TYPE,
                                 "file",
                                 event.target.files[0]
                               )
@@ -773,7 +787,7 @@ const RegistersPage = () => {
                             module="tools"
                             label="strategyPicker"
                             onChange={(value) =>
-                              handleFieldChange("items", "strategy", value)
+                              handleFieldChange(ITEMS_TYPE, "strategy", value)
                             }
                             required
                             constants={MEDICAL_ITEMS_STRATEGIES}
@@ -788,7 +802,7 @@ const RegistersPage = () => {
                                 checked={forms.items?.dryRun}
                                 onChange={(e) =>
                                   handleFieldChange(
-                                    "items",
+                                    ITEMS_TYPE,
                                     "dryRun",
                                     e.target.checked
                                   )
@@ -801,7 +815,7 @@ const RegistersPage = () => {
                           <Button
                             variant="contained"
                             color="primary"
-                            onClick={(e) => openPopup(e, "items")}
+                            onClick={(e) => openPopup(e, ITEMS_TYPE)}
                             disabled={
                               !(forms.items?.file && forms.items?.strategy)
                             }
@@ -822,7 +836,9 @@ const RegistersPage = () => {
                                 <Button
                                   variant="contained"
                                   color="primary"
-                                  onClick={() => onSubmit(forms.items, "items")}
+                                  onClick={() =>
+                                    onSubmit(forms.items, ITEMS_TYPE)
+                                  }
                                   disabled={
                                     !(
                                       forms.items?.file && forms.items?.strategy
@@ -864,7 +880,7 @@ const RegistersPage = () => {
                           module="tools"
                           label="formatPicker"
                           onChange={(value) =>
-                            handleFieldChange("services", "format", value)
+                            handleFieldChange(SERVICES_TYPE, "format", value)
                           }
                           required
                           constants={EXPORT_TYPES}
@@ -875,7 +891,7 @@ const RegistersPage = () => {
                             variant="contained"
                             color="primary"
                             onClick={onRegisterDownload(
-                              "services",
+                              SERVICES_TYPE,
                               forms.services?.format
                             )}
                             disabled={!forms.services?.format}
@@ -901,7 +917,7 @@ const RegistersPage = () => {
                           <Input
                             onChange={(event) =>
                               handleFieldChange(
-                                "services",
+                                SERVICES_TYPE,
                                 "file",
                                 event.target.files[0]
                               )
@@ -921,7 +937,11 @@ const RegistersPage = () => {
                             module="tools"
                             label="strategyPicker"
                             onChange={(value) =>
-                              handleFieldChange("services", "strategy", value)
+                              handleFieldChange(
+                                SERVICES_TYPE,
+                                "strategy",
+                                value
+                              )
                             }
                             required
                             constants={MEDICAL_SERVICES_STRATEGIES}
@@ -936,7 +956,7 @@ const RegistersPage = () => {
                                 checked={forms.services?.dryRun}
                                 onChange={(e) =>
                                   handleFieldChange(
-                                    "services",
+                                    SERVICES_TYPE,
                                     "dryRun",
                                     e.target.checked
                                   )
@@ -949,7 +969,7 @@ const RegistersPage = () => {
                           <Button
                             variant="contained"
                             color="primary"
-                            onClick={(e) => openPopup(e, "services")}
+                            onClick={(e) => openPopup(e, SERVICES_TYPE)}
                             disabled={
                               !(
                                 forms.services?.file && forms.services?.strategy
@@ -973,7 +993,7 @@ const RegistersPage = () => {
                                   variant="contained"
                                   color="primary"
                                   onClick={() =>
-                                    onSubmit(forms.services, "services")
+                                    onSubmit(forms.services, SERVICES_TYPE)
                                   }
                                   disabled={
                                     !(

@@ -58,6 +58,8 @@
   "tools.RegistersPage.UploadDialog.skipped": "Skipped:",
   "tools.RegistersPage.UploadDialog.invalid": "Invalid:",
   "tools.RegistersPage.UploadDialog.failed": "Failed:",
+  "tools.RegistersPage.UploadDialog.details": "Details:",
+  "tools.RegistersPage.UploadDialog.message": "Message:",
   "tools.ExtractsPage.OfficerDownloadBlock.title": "Download Data for Officer",
   "tools.ExtractsPage.OfficerDownloadBlock.officerLabel": "Select Officer",
   "tools.ExtractsPage.OfficerDownloadBlock.downloadFeedbacksBtn": "Download Feedbacks",

@@ -14,8 +14,10 @@ export const RIGHT_REPORTS = [
   131219, 131220, 131221, 131222, 131223,
 ];
 export const RIGHT_UTILITIES = [131301, 131302, 131303, 131304];
-//! NEEDS TO BE CHANGED INTO PROPER VALUE
-export const RIGHT_REGISTERS_INSUREES = [1234567789];
+// export const RIGHT_INSUREE_ADD = 101102;
+// export const RIGHT_INSUREE_EDIT = 101103;
+// export const RIGHT_INSUREE_DELETE = 101104;
+export const RIGHT_REGISTERS_INSUREES = [101102];
 export const RIGHT_FUNDING = 131401;
 export const RIGHT_POLICY_RENEWALS = 101205; // cfr.UsersBL.vb : that menu entry is provided when user has PolicyRenew!
 export const RIGHT_FEEDBACK_PROMPT = 111008; // cfr.UsersBL.vb : that menu entry is provided when user has ClaimReview!
@@ -31,3 +33,10 @@ export const EXPORT_TYPE_XLS = "xls";
 export const EXPORT_TYPE_XLSX = "xlsx";
 export const EXPORT_TYPE_JSON = "json";
 export const EXPORT_TYPE_XML = "xml";
+
+export const INSUREES_TYPE = "insurees";
+export const LOCATIONS_TYPE = "locations";
+export const DIAGNOSIS_TYPE = "diagnosis";
+export const HF_TYPE = "hf";
+export const ITEMS_TYPE = "items";
+export const SERVICES_TYPE = "services";
