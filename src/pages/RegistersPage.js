@@ -71,6 +71,12 @@ const EXPORT_TYPES = [
   EXPORT_TYPE_XLSX,
   EXPORT_TYPE_XML,
 ];
+const INSUREE_EXPORT_TYPES = [
+  EXPORT_TYPE_CSV,
+  EXPORT_TYPE_JSON,
+  EXPORT_TYPE_XLS,
+  EXPORT_TYPE_XLSX,
+];
 
 const RegistersPage = () => {
   const { formatMessage } = useTranslations("tools.RegistersPage");
@@ -101,7 +107,7 @@ const RegistersPage = () => {
     if (format === EXPORT_TYPE_XML) {
       window.open(`${REGISTERS_URL}/download_${register}`);
     } else if (register === INSUREES_TYPE) {
-      window.open(`${INSUREES_EXPORT_URL}/${register}?format=${format}`);
+      window.open(`${INSUREES_EXPORT_URL}/${register}?file_format=${format}`);
     } else {
       window.open(`${EXPORTS_URL}/${register}?file_format=${format}`);
     }
@@ -695,7 +701,7 @@ const RegistersPage = () => {
           )}
           {hasRights(RIGHT_REGISTERS_INSUREES) && (
             <Uploader
-              acceptableFormats={EXPORT_TYPES}
+              acceptableFormats={INSUREE_EXPORT_TYPES}
               blockName={INSUREES_TYPE}
               formatMessage={formatMessage}
               forms={forms}
