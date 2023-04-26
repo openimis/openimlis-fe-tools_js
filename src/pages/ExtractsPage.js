@@ -27,7 +27,7 @@ const OfficerDownloadBlock = (props) => {
     const stringParams = Object.keys(params).map((k)=>`${k}=${encodeURIComponent(params[k])}`)?.join("&")
     return window.open(`${EXTRACTS_URL}/download_${extract}${stringParams ? `?${stringParams}` : ""}`);
   }
-  const officer_code = officer ? decodeId(officer.id) : "";
+  const officer_id = officer ? decodeId(officer.id) : "";
 
   return (
     <Block title={formatMessage("OfficerDownloadBlock.title")}>
@@ -43,13 +43,13 @@ const OfficerDownloadBlock = (props) => {
         </Grid>
         <Grid item xs={6}>
           <Button disabled={!officer} color="primary" variant="contained"
-                  onClick={onExtractDownload("feedbacks", {officer_code})}>
+                  onClick={onExtractDownload("feedbacks", {officer_id})}>
             {formatMessage("OfficerDownloadBlock.downloadFeedbacksBtn")}
           </Button>
         </Grid>
         <Grid item xs={6} align="right">
           <Button disabled={!officer} color="primary" variant="contained"
-                  onClick={onExtractDownload("renewals", {officer_code})}>
+                  onClick={onExtractDownload("renewals", {officer_id})}>
             {formatMessage("OfficerDownloadBlock.downloadRenewalsBtn")}
           </Button>
         </Grid>
