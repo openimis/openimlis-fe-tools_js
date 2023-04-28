@@ -43,13 +43,13 @@ const OfficerDownloadBlock = (props) => {
         </Grid>
         <Grid item xs={6}>
           <Button disabled={!officer} color="primary" variant="contained"
-                  onClick={onExtractDownload("phone_extract", {officer_id})}>
+                  onClick={onExtractDownload("feedbacks", {officer_id})}>
             {formatMessage("OfficerDownloadBlock.downloadFeedbacksBtn")}
           </Button>
         </Grid>
         <Grid item xs={6} align="right">
           <Button disabled={!officer} color="primary" variant="contained"
-                  onClick={onExtractDownload("phone_extract", {officer_id})}>
+                  onClick={onExtractDownload("renewals", {officer_id})}>
             {formatMessage("OfficerDownloadBlock.downloadRenewalsBtn")}
           </Button>
         </Grid>
