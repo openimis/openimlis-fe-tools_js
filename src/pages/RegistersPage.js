@@ -190,13 +190,22 @@ const RegistersPage = () => {
         method: "POST",
         credentials: "same-origin",
       });
-      if (response.status >= 400) {
-        throw new Error(
-          `${response?.status}: ${response?.url} - ${response?.statusText}`
-        );
-      }
 
       const payload = await response.json();
+
+      if (response.status >= 400) {
+        setDialogState({
+          open: true,
+          isLoading: false,
+          data: {
+            success: payload.success,
+          },
+          generalError:
+            payload.error && `Error ${response.status}: ${payload.error}`,
+        });
+        return;
+      }
+
       setDialogState({
         open: true,
         isLoading: false,
