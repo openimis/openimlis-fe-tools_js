@@ -8,7 +8,6 @@ const ReportPicker = (props) => {
   const { formatMessage } = useTranslations("tools", modulesManager);
   const [searchString, setSearchString] = useState("");
   const { isLoading, data } = useReportsQuery();
-
   const options = useMemo(() => {
     if (searchString) {
       return data?.reports.filter((x) => x.name.toLowerCase().includes(searchString.toLowerCase()));

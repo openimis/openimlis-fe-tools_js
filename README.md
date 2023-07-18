@@ -7,7 +7,7 @@ It is dedicated to be deployed as a module of [openimis-fe_js](https://github.co
 ## Main Menu Contributions
 * **Tools** (`tools.mainMenu` contribution key)
 
-  **Registers** (`tools.menu.registers` translation key), pointing to `/Registers.aspx` legacy openIMIS (via proxy page). Displayed only if user has one the `[131001,131002,131003,131004,131005,131006]` rights.
+  **Registers** (`tools.menu.registers` translation key), pointing to `/Registers.aspx` legacy openIMIS (via proxy page). Displayed only if user has one the `[131001,131002,131003,131004,131005,131006,131007,131008,131009,131010]` rights.
 
   **Policy Renewals** (`tools.menu.renewals` translation key), pointing to `/PolicyRenewal.aspx` legacy openIMIS (via proxy page). Displayed only if user has the  right `101205`.
 

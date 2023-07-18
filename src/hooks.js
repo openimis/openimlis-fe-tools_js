@@ -3,8 +3,8 @@ import { useGraphqlMutation, useGraphqlQuery } from "@openimis/fe-core";
 export const useReportsQuery = (config) => {
   const { isLoading, error, data, refetch } = useGraphqlQuery(
     `
-  query useReportsQuery {
-    reports {
+    query useReportsQuery {
+      reports {
         name
         module
         description
@@ -13,7 +13,6 @@ export const useReportsQuery = (config) => {
     {},
     config
   );
-
   return { isLoading, error, refetch, data };
 };
 
