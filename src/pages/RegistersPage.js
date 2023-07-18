@@ -13,7 +13,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-  DialogActions,
+  DialogActions
 } from "@material-ui/core";
 
 import {
@@ -84,7 +84,6 @@ const RegistersPage = () => {
   const rights = useSelector((state) => state.core?.user?.i_user?.rights ?? []);
   const [dialogState, setDialogState] = useState({});
   const [popupState, setPopupState] = useState({});
-
   const REGISTERS_URL = `${baseApiUrl}/tools/registers`;
   const EXPORTS_URL = `${baseApiUrl}/tools/exports`;
   const IMPORTS_URL = `${baseApiUrl}/tools/imports`;
@@ -141,6 +140,7 @@ const RegistersPage = () => {
     });
   };
 
+
   const onDialogClose = (reason) => {
     if (reason === "escapeKeyDown" || reason === "backdropClick") {
       return;
@@ -165,10 +165,8 @@ const RegistersPage = () => {
       anchorEl: null,
       error: null,
     });
-
     const fileFormat = values.file.type;
     let formData = new FormData();
-
     formData.append("file", values.file);
 
     let url_import;
@@ -227,7 +225,7 @@ const RegistersPage = () => {
       });
     }
   };
-
+  console.log("TOOLS RENDERING")
   return (
     <>
       {dialogState?.open && (
@@ -515,7 +513,7 @@ const RegistersPage = () => {
                           />
                         </Grid>
                         <Grid item>
-                          <Button
+                        <Button
                             variant="contained"
                             color="primary"
                             onClick={(e) => openPopup(e, LOCATIONS_TYPE)}
