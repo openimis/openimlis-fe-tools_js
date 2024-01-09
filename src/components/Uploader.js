@@ -52,7 +52,7 @@ const Uploader = ({
                   }
                   required
                   constants={acceptableFormats}
-                  withNull
+                  withNull={false}
                 />
                 <Grid item>
                   <Button
@@ -105,7 +105,7 @@ const Uploader = ({
                     }
                     required
                     constants={strategies}
-                    withNull
+                    withNull={false}
                   />
                 </Grid>
                 <Grid item>
