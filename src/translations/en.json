@@ -90,8 +90,6 @@
   "tools.ReportForm.title": "Editing report {name}",
   "tools.ReportForm.unknownReport": "Unknown report",
   "tools.ReportSearcher.tableTitle": "Reports",
-  "tools.report.name": "Report Name",
-  "tools.report.module": "Module",
   "tools.report.validityFrom": "Valid From",
   "tools.report.description": "Description",
   "tools.report.definition": "Definition",

@@ -7,7 +7,7 @@ import { Box, Button } from "@material-ui/core";
 import ReportDefinitionEditorDialog from "./ReportDefinitionEditorDialog";
 import { RIGHT_REPORT_EDIT, RIGHT_REPORT_ADD } from "../constants"
 
-const HEADERS = ["tools.report.description", "tools.report.module", "tools.report.name", ""];
+const HEADERS = ["tools.report.description", ""];
 
 const ReportSearcher = () => {
   const modulesManager = useModulesManager();
@@ -18,8 +18,6 @@ const ReportSearcher = () => {
   const itemFormatters = useCallback(
     () => [
       (r) => r.description,
-      (r) => r.module,
-      (r) => r.name,
       (r) => (
         <Box display="flex" justifyContent={"flex-end"} gridGap={12}>
           {
