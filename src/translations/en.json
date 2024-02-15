@@ -107,5 +107,6 @@
   "tools.RegistersPage.servicesBlockTitle": "Medical Services",
   "tools.RegistersPage.insureesBlockTitle": "Insurees",
   "tools.RegistersPage.insurees.uploadLabel": "Upload Insurees",
-  "tools.RegistersPage.insurees.downloadLabel": "Download Insurees"
+  "tools.RegistersPage.insurees.downloadLabel": "Download Insurees",
+  "tools.ReportSearcher.moduleName": "{module} Module"
 }
