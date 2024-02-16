@@ -34,7 +34,7 @@ const GenerateReportPicker = (props) => {
       {children ? (
         children({ toggle })
       ) : (
-        <Button onClick={toggle} variant="contained" size="small">
+        <Button onClick={toggle} size="small" variant="contained" color="primary">
           {formatMessage("triggerBtn")}
         </Button>
       )}
