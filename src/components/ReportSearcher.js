@@ -3,13 +3,14 @@ import { useSelector } from "react-redux";
 
 import { Box, Button, Tooltip } from "@material-ui/core";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
+import EditIcon from '@material-ui/icons/Edit';
 
 import {
   Searcher,
   useTranslations,
   useModulesManager,
 } from "@openimis/fe-core";
-import { RIGHT_REPORT_EDIT, RIGHT_REPORT_ADD } from "../constants";
+import { RIGHT_REPORT_EDIT } from "../constants";
 import { useReportsQuery } from "../hooks";
 import GenerateReportPicker from "./GenerateReportPicker";
 import ReportDefinitionEditorDialog from "./ReportDefinitionEditorDialog";
@@ -66,12 +67,6 @@ const ReportSearcher = () => {
   const formatActions = (report) =>
     !report.category && (
       <Box display="flex" justifyContent={"flex-end"} gridGap={12}>
-        {rights.includes(RIGHT_REPORT_ADD) &&
-          rights.includes(RIGHT_REPORT_EDIT) && (
-            <Button onClick={() => setEditedReport(report)} size="small">
-              {formatMessage("ReportSearcher.editBtn")}
-            </Button>
-          )}
         <div
           style={{
             display: "flex",
@@ -83,6 +78,11 @@ const ReportSearcher = () => {
             <HelpOutlineIcon fontSize="small" />
           </Tooltip>
         </div>
+        {rights.includes(RIGHT_REPORT_EDIT) && (
+          <Button onClick={() => setEditedReport(report)} size="small" startIcon={<EditIcon />}>
+            {formatMessage("ReportSearcher.editBtn")}
+          </Button>
+        )}
         <GenerateReportPicker name={report.name} />
       </Box>
     );
