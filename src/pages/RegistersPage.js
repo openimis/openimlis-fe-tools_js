@@ -358,7 +358,7 @@ const RegistersPage = () => {
                             }
                             required
                             constants={DIAGNOSES_STRATEGIES}
-                            withNull
+                            withNull={false}
                           />
                         </Grid>
                         <Grid item>
@@ -492,7 +492,7 @@ const RegistersPage = () => {
                             }
                             required
                             constants={LOCATIONS_STRATEGIES}
-                            withNull
+                            withNull={false}
                           />
                         </Grid>
                         <Grid item>
@@ -626,7 +626,7 @@ const RegistersPage = () => {
                             }
                             required
                             constants={HEALTH_FACILITIES_STRATEGIES}
-                            withNull
+                            withNull={false}
                           />
                         </Grid>
                         <Grid item>
@@ -746,7 +746,7 @@ const RegistersPage = () => {
                           }
                           required
                           constants={EXPORT_TYPES}
-                          withNull
+                          withNull={false}
                         />
                         <Grid item>
                           <Button
@@ -803,7 +803,7 @@ const RegistersPage = () => {
                             }
                             required
                             constants={MEDICAL_ITEMS_STRATEGIES}
-                            withNull
+                            withNull={false}
                           />
                         </Grid>
                         <Grid item>
@@ -896,7 +896,7 @@ const RegistersPage = () => {
                           }
                           required
                           constants={EXPORT_TYPES}
-                          withNull
+                          withNull={false}
                         />
                         <Grid item>
                           <Button
@@ -957,7 +957,7 @@ const RegistersPage = () => {
                             }
                             required
                             constants={MEDICAL_SERVICES_STRATEGIES}
-                            withNull
+                            withNull={false}
                           />
                         </Grid>
                         <Grid item>
