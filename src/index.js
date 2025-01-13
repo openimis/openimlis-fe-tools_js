@@ -27,7 +27,7 @@ const DEFAULT_CONFIG = {
     { path: "tools/utilities", component: UtilitiesPage },
     { path: "tools/emailSettings", component: EmailSettingsPage },
   ],
-  "core.MainMenu": [ToolsMainMenu],
+  "core.MainMenu": [{ name: 'ToolsMainMenu', component: ToolsMainMenu }],
 };
 
 export const ToolsModule = (cfg) => {
