@@ -58,6 +58,7 @@ class ToolsMainMenu extends Component {
         header={formatMessage(this.props.intl, "tools", "mainMenu")}
         icon={<Settings />}
         entries={entries}
+        menuId="ToolsMainMenu"
       />
     );
   }
