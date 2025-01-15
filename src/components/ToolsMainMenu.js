@@ -29,11 +29,16 @@ class ToolsMainMenu extends Component {
         text: formatMessage(this.props.intl, "tools", "menu.registers"),
         icon: <ImportExport />,
         route: "/tools/registers",
+        id: 'tools.registers',
       });
     }
     if (this.enablers(RIGHT_EXTRACTS)) {
-      entries.push(
-        { text: formatMessage(this.props.intl, "tools", "menu.extracts"), icon: <SaveAlt />, route: "/tools/extracts" },
+      entries.push({ 
+        text: formatMessage(this.props.intl, "tools", "menu.extracts"),
+        icon: <SaveAlt />,
+        route: "/tools/extracts",
+        id: 'tools.extracts', 
+      },
       )
     }
     if (this.enablers(RIGHT_REPORTS)) {
@@ -41,6 +46,7 @@ class ToolsMainMenu extends Component {
         text: formatMessage(this.props.intl, "tools", "menu.reports"),
         icon: <Ballot />,
         route: "/tools/reports",
+        id: 'tools.reports', 
       });
     }
 
